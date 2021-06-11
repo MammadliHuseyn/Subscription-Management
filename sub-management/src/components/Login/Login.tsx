@@ -1,7 +1,7 @@
 export const Login = () => {
   return (
-    <section className="bg-gradient-primary" style={{height:"100vh"}}>
-      <div className="container">
+    <section className="page-heigth">
+      <div className="container-fluid">
         <div className="row justify-content-center">
           <div className="col-xl-10 col-lg-12 col-md-9">
             <div className="card o-hidden border-0 shadow-lg my-5">
@@ -24,6 +24,7 @@ export const Login = () => {
                             aria-describedby="emailHelp"
                             placeholder="Enter User Name..."
                           />
+                          <br/>
                         </div>
                         <div className="form-group">
                           <input
@@ -32,6 +33,7 @@ export const Login = () => {
                             id="exampleInputPassword"
                             placeholder="Password..."
                           />
+                          <br/>
                         </div>
                         <a
                           href="index.html"

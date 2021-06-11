@@ -1,2 +1,9 @@
 @import 'bootstrap';
 @import "./components/scss/sb-admin-2.scss";
+
+.page-heigth{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
