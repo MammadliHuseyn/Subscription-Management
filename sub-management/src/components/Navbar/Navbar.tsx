@@ -13,12 +13,12 @@ const Navbar = () => {
         justify-content-between
       "
     >
-      <h1>Managment System</h1>
+      <h1 >Managment System</h1>
       <ul className="navbar-nav ml-auto flex-between">
         <li className="nav-item dropdown no-arrow mx-1">
           <a
             className="nav-link dropdown-toggle"
-            href="#"
+            href="/"
             id="messagesDropdown"
             role="button"
             data-toggle="dropdown"
@@ -32,7 +32,7 @@ const Navbar = () => {
         <li className="flex-between nav-item dropdown no-arrow">
           <a
             className="nav-link dropdown-toggle"
-            href="#"
+            href="/"
             id="userDropdown"
             role="button"
             data-toggle="dropdown"
