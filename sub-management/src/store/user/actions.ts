@@ -3,18 +3,20 @@ import { Dispatch } from 'redux';
 import { ACTION_TYPES } from './actionTypes';
 import { IUserLoginForm, IUserRegisterForm } from './../../types';
 import Swal from 'sweetalert2';
-const baseUrl = "http://172.28.0.91:7000/api";
+import { getSubscriptions } from './../subscription/actions';
+const baseUrl = "http://172.28.0.91:7000/api/users";
 
 export const registerUser = (user: IUserRegisterForm) => {
     return (dispatch: Dispatch) => {
-        return axios.post(`${baseUrl}/users`, user).then(
+        return axios.post(`${baseUrl}`, user).then(
             ({ data }) => {
                 dispatch({ type: ACTION_TYPES.REGISTER, payload: data });
                 return data;
             },
         ).then((data) => {
             Swal.fire('Welcome', '', 'success');
-            return data
+            getSubscriptions(data.id);
+            return data;
         })
             .catch(
                 err => {
@@ -26,8 +28,11 @@ export const registerUser = (user: IUserRegisterForm) => {
 
 export const loginUser = (user: IUserLoginForm) => {
     return (dispatch: Dispatch) => {
-        return axios.post(`${baseUrl}`, user).then(
-            ({ data }) => dispatch({ type: ACTION_TYPES.LOG_IN, payload: data })
+        return axios.post(`${baseUrl}/auth`, user).then(
+            ({ data }) => {
+                dispatch({ type: ACTION_TYPES.LOG_IN, payload: data });
+                return data;
+            }
         ).catch(
             err => {
                 Swal.fire('', `${err.response.data}`, 'error');
@@ -37,9 +42,16 @@ export const loginUser = (user: IUserLoginForm) => {
     };
 };
 
-export const logOutUser = (id: string) => {
-    return {
-        type: ACTION_TYPES.LOG_OUT,
-        payload: id
-    }
+export const logOutUser = (id: number) => {
+    return (dispatch: Dispatch) => {
+        return axios.get(`${baseUrl}/logout`).then(
+            ({ data }) => {
+                dispatch({ type: ACTION_TYPES.LOG_OUT, payload: data });
+            }
+        ).catch(
+            err => {
+                return err.response.data;
+            }
+        );
+    };
 }

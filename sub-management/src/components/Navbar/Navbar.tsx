@@ -1,4 +1,26 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { logOutUser } from "../../store/user/actions";
+import { ISelector } from "../../types/useSelectorType";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 const Navbar = () => {
+  const user = useSelector((state: ISelector) => state.UserReducer);
+  const dispatch = useDispatch();
+  const { push } = useHistory();
+  const handleLogOut = () => {
+    Swal.fire({
+      title: 'Are you sure to log out?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logOutUser(user.id)(dispatch).then(() => push('/login'));
+      }
+    })
+  }
   return (
     <nav
       className="
@@ -40,11 +62,11 @@ const Navbar = () => {
             aria-expanded="false"
           >
             <span className="d-none d-lg-inline text-gray-600 pr-2">
-              Douglas McGee
+              {`${user.name} ${user.surname}`}
             </span>
           </a>
           <div id="log-out">
-            <button className="ml-1 btn btn-primary">LogOut</button>
+            <button className="ml-1 btn btn-primary" onClick={handleLogOut}>LogOut</button>
           </div>
         </li>
       </ul>
