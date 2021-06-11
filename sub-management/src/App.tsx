@@ -1,10 +1,14 @@
-import React from 'react';
 import './App.scss';
+import Aside from './components/Aside/Aside';
+import Main from './components/Main/Main';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <div>
-
+    <div> 
+      <Navbar/>
+      <Aside/>
+      <Main/>
     </div>
   );
 }
