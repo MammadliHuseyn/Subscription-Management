@@ -1,4 +1,3 @@
-import Aside from "../Aside/Aside";
 import Navbar from "../Navbar/Navbar";
 import Pagination from "./Pagination";
 
