@@ -1,4 +1,4 @@
-import React from 'react';
+import { ACTION_TYPES as SUB_ACTION_TYPES } from '../store/subscription/actionTypes';
 
 export interface IUserLogin {
     username: string;
@@ -39,5 +39,30 @@ export interface ISubscription {
     price: IPrice;
     userId: number;
     group: IGroup;
+    active: Boolean;
     category: ICategory;
+    subscriptionTime: string;
 }
+
+interface IActionGetSubscriptions {
+    type: SUB_ACTION_TYPES.GET_SUBSCRIPTIONS;
+    payload: Array<ISubscription>;
+}
+interface IActionAddSubscription {
+    type: SUB_ACTION_TYPES.ADD_SUBSCRIPTION;
+    payload: ISubscription;
+}
+interface IActionStopSubscription {
+    type: SUB_ACTION_TYPES.STOP_SUBSCRIPTION;
+    payload: number; // subscription id
+}
+interface IActionDeleteSubscription {
+    type: SUB_ACTION_TYPES.DELETE_SUBSCRIPTION;
+    payload: number; // subscription id
+}
+
+export type ISubAction =
+    IActionGetSubscriptions |
+    IActionAddSubscription |
+    IActionStopSubscription |
+    IActionDeleteSubscription;
