@@ -42,7 +42,7 @@ const Register = () => {
 
 
   return (
-    <section className="page-heigth">
+    <section className="page-heigth bg-register">
       <div className="container">
         <div className="card o-hidden border-0 shadow-lg">
           <div className="card-body p-0">

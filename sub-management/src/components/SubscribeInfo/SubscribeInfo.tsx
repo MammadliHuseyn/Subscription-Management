@@ -1,5 +1,4 @@
 import Aside from "../Aside/Aside"
-import Main from "../Main/Main"
 import Navbar from "../Navbar/Navbar"
 
 const SubscribeInfo = () => {
@@ -11,7 +10,6 @@ const SubscribeInfo = () => {
             <div id="content">
               <Navbar />
             <div className="container">
-                
             </div>
             </div>
           </div>
