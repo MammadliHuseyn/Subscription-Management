@@ -4,9 +4,11 @@ import React from 'react';
 import { IUserRegisterForm } from '../../types';
 import { useDispatch } from 'react-redux';
 import { registerUser } from './../../store/user/actions';
+import { useHistory } from 'react-router';
 
 const Register = () => {
   const dispatch = useDispatch();
+  const { push } = useHistory();
   const RegisterSchema = Yup.object().shape({
     username: Yup.string()
       .min(5, 'Too Short!')
@@ -57,8 +59,7 @@ const Register = () => {
                     initialValues={initialValues}
                     validationSchema={RegisterSchema}
                     onSubmit={validUser => {
-                      dispatch(registerUser(validUser));
-                      //main page route goes here
+                      registerUser(validUser)(dispatch).then((data) => data.id ? push('/') : '');
                     }}
                   >
                     {({ errors, touched }) => (

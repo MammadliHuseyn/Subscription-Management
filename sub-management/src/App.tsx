@@ -1,17 +1,28 @@
 import './App.scss';
-import {Login} from './components/Login/Login';
+import { Login } from './components/Login/Login';
 import Main from './components/Main/Main';
 import Register from './components/Register/Register';
 import SubscribeInfo from './components/SubscribeInfo/SubscribeInfo';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { AuthRouter } from './authRoute';
 
 
 function App() {
   return (
-    <div> 
-      {/* <Login/> */}
-      {/* <Register/> */}
-      <Main/>
-    </div>
+    <Router>
+      <Switch>
+        <AuthRouter exact path="/">
+          <Main />
+        </AuthRouter>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </Router>
   );
 }
 

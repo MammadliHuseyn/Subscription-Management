@@ -8,18 +8,31 @@ const baseUrl = "http://172.28.0.91:7000/api";
 export const registerUser = (user: IUserRegisterForm) => {
     return (dispatch: Dispatch) => {
         return axios.post(`${baseUrl}/users`, user).then(
-            ({ data }) => dispatch({ type: ACTION_TYPES.REGISTER, payload: data }),
-        ).then(() => Swal.fire('Created', 'Login please', 'success'))
+            ({ data }) => {
+                dispatch({ type: ACTION_TYPES.REGISTER, payload: data });
+                return data;
+            },
+        ).then((data) => {
+            Swal.fire('Welcome', '', 'success');
+            return data
+        })
             .catch(
-                err => Swal.fire('', `${err.response.data}`, 'error'));
+                err => {
+                    Swal.fire('', `${err.response.data}`, 'error');
+                    return err.response.data;
+                });
     };
 };
 
 export const loginUser = (user: IUserLoginForm) => {
     return (dispatch: Dispatch) => {
         return axios.post(`${baseUrl}`, user).then(
-            ({ data }) => dispatch({ type: ACTION_TYPES.LOG_IN, data }),
-            err => console.log(err)
+            ({ data }) => dispatch({ type: ACTION_TYPES.LOG_IN, payload: data })
+        ).catch(
+            err => {
+                Swal.fire('', `${err.response.data}`, 'error');
+                return err.response.data;
+            }
         );
     };
 };
