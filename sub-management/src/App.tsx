@@ -5,14 +5,16 @@ import Main from './components/Main/Main';
 import Navbar from './components/Navbar/Navbar';
 import Register from './components/Register/Register';
 
+
 function App() {
   return (
     <div> 
       {/* <Navbar/>
       <Aside/>
       <Main/> */}
-      <Login/>
+      {/* <Login/> */}
       {/* <Register/> */}
+      <Main/>
     </div>
   );
 }
