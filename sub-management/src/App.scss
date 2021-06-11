@@ -7,3 +7,14 @@
     justify-content: center;
     align-items: center;
 }
+
+.flex-between{
+    display: flex;
+    justify-content: space-between !important;
+}
+
+.error-validation{
+    color: #dc3545;
+    font-weight: 600;
+}
+
