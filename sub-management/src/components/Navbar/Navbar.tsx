@@ -9,6 +9,7 @@ const Navbar = () => {
         static-top
         shadow
         flex-between
+        container
       "
     >
       <form
