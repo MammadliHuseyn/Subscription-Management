@@ -21,7 +21,10 @@ function App() {
         <Route exact path="/login">
           <Login />
         </Route>
-        <Redirect to="/" />
+        <Route path="/404">
+          <NotFound />
+        </Route>
+        <Redirect to="/404" />
       </Switch>
     </Router>
   );
