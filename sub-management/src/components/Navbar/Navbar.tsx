@@ -10,9 +10,10 @@ const Navbar = () => {
         shadow
         container
         d-flex
-        justify-content-end
+        justify-content-between
       "
     >
+      <h1>Managment System</h1>
       <ul className="navbar-nav ml-auto flex-between">
         <li className="nav-item dropdown no-arrow mx-1">
           <a
