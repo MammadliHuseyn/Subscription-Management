@@ -8,6 +8,8 @@ const Navbar = () => {
         mb-4
         static-top
         shadow
+        flex-between
+        container
       "
     >
       <form
@@ -36,7 +38,7 @@ const Navbar = () => {
           </div>
         </div>
       </form>
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-auto flex-between">
         <li className="nav-item dropdown no-arrow mx-1">
           <a
             className="nav-link dropdown-toggle"
@@ -61,7 +63,7 @@ const Navbar = () => {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <span className="d-none d-lg-inline text-gray-600 small">
+            <span className="d-none d-lg-inline text-gray-600 pr-2">
               Douglas McGee
             </span>
             <button className="ml-1 btn btn-primary">LogOut</button>

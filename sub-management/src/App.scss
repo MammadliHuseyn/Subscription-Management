@@ -1,5 +1,7 @@
 @import 'bootstrap';
 @import "./components/scss/sb-admin-2.scss";
+@import "./pagination";
+@import "./main";
 
 .page-heigth{
     height: 100vh;
@@ -7,3 +9,14 @@
     justify-content: center;
     align-items: center;
 }
+
+.flex-between{
+    display: flex;
+    justify-content: space-between !important;
+}
+
+.error-validation{
+    color: #dc3545;
+    font-weight: 600;
+}
+
