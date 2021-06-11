@@ -5,32 +5,32 @@ const Pagination = () => {
         <nav aria-label="...">
           <ul className="pagination">
             <li className="page-item">
-              <a className="page-link" >
+              <a href="/" className="page-link" >
                 Previous
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link">
+              <a href="/" className="page-link">
                 1
               </a>
             </li>
             <li className="page-item active">
-              <a className="page-link">
+              <a href="/" className="page-link">
                 2 <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link" >
+              <a href="/" className="page-link" >
                 3
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link" >
+              <a href="/" className="page-link" >
                 4
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link" >
+              <a href="/" className="page-link" >
                 Next
               </a>
             </li>

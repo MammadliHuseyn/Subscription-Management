@@ -12,9 +12,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <AuthRouter exact path="/">
+        <Route exact path="/">
           <Main />
-        </AuthRouter>
+        </Route>
         <Route exact path="/register">
           <Register />
         </Route>

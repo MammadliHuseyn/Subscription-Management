@@ -1,3 +1,4 @@
+import Modal from './Modal';
 const Search = () => {
   return (
     <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -30,16 +31,7 @@ const Search = () => {
           </div>
         </div>
       </form>
-      <a
-        href="#"
-        className="
-          d-sm-inline-block
-          btn btn-sm btn-primary
-          shadow-sm
-        "
-      >
-        <i className="fa-sm text-white-50"></i> Create Subscription
-      </a>
+    <Modal/>
     </div>
   );
 };
