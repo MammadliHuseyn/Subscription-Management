@@ -8,36 +8,11 @@ const Navbar = () => {
         mb-4
         static-top
         shadow
-        flex-between
         container
+        d-flex
+        justify-content-end
       "
     >
-      <form
-        className="
-          d-none d-sm-inline-block
-          form-inline
-          mr-auto
-          ml-md-3
-          my-2 my-md-0
-          mw-100
-          navbar-search
-        "
-      >
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control bg-light border-0 small"
-            placeholder="Search for..."
-            aria-label="Search"
-            aria-describedby="basic-addon2"
-          />
-          <div className="input-group-append">
-            <button className="btn btn-primary" type="button">
-              <i className="fas fa-search fa-sm"></i>
-            </button>
-          </div>
-        </div>
-      </form>
       <ul className="navbar-nav ml-auto flex-between">
         <li className="nav-item dropdown no-arrow mx-1">
           <a
@@ -53,7 +28,7 @@ const Navbar = () => {
             <span className="badge badge-danger badge-counter">7</span>
           </a>
         </li>
-        <li className="nav-item dropdown no-arrow">
+        <li className="flex-between nav-item dropdown no-arrow">
           <a
             className="nav-link dropdown-toggle"
             href="#"
@@ -66,8 +41,10 @@ const Navbar = () => {
             <span className="d-none d-lg-inline text-gray-600 pr-2">
               Douglas McGee
             </span>
-            <button className="ml-1 btn btn-primary">LogOut</button>
           </a>
+          <div id="log-out">
+            <button className="ml-1 btn btn-primary">LogOut</button>
+          </div>
         </li>
       </ul>
     </nav>

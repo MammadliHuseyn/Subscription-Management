@@ -9,8 +9,8 @@ function App() {
   return (
     <div> 
       {/* <Login/> */}
-      {/* <Register/> */}
-      <Main/>
+      <Register/>
+      {/* <Main/> */}
     </div>
   );
 }

@@ -6,17 +6,44 @@ const Main = () => {
   return (
     <div id="page-top">
       <div id="wrapper">
-        <Aside />
         <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
             <Navbar />
             <div className="container">
               <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Subscriptions</h1>
+                <form
+                  className="
+                    d-sm-inline-block
+                    form-inline
+                    mr-auto
+                    ml-md-3
+                    my-2 my-md-0
+                    mw-100
+                    navbar-search
+                    w-75
+                    border
+                    rounded
+                   "
+                >
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control bg-light border-0 small"
+                      placeholder="Search for..."
+                      aria-label="Search"
+                      aria-describedby="basic-addon2"
+                    />
+                    <div className="input-group-append">
+                      <button className="btn btn-primary" type="button">
+                        <i className="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
                 <a
                   href="#"
                   className="
-                  d-none d-sm-inline-block
+                  d-sm-inline-block
                   btn btn-sm btn-primary
                   shadow-sm
                 "
@@ -107,5 +134,4 @@ const Main = () => {
     </div>
   );
 };
-
 export default Main;
