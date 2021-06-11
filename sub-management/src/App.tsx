@@ -11,8 +11,8 @@ function App() {
     <div> 
       {/* <Login/> */}
       {/* <Register/> */}
-      {/* <Main/> */}
-      <NotFound/>
+      <Main/>
+      {/* <NotFound/> */}
     </div>
   );
 }
