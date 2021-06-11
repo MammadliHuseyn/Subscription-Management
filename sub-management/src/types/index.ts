@@ -1,4 +1,5 @@
 import { ACTION_TYPES as SUB_ACTION_TYPES } from '../store/subscription/actionTypes';
+import { ACTION_TYPES as USER_ACTION_TYPES } from '../store/user/actionTypes';
 
 export interface IUserLogin {
     username: string;
@@ -13,7 +14,7 @@ export interface IUserRegister {
     email: string;
 }
 export interface IStoredUser {
-    id: string;
+    id: number;
     username: string;
     email: string;
     name: string;
@@ -66,3 +67,21 @@ export type ISubAction =
     IActionAddSubscription |
     IActionStopSubscription |
     IActionDeleteSubscription;
+
+interface IActionRegister {
+    type: USER_ACTION_TYPES.REGISTER;
+    payload: IStoredUser;
+}
+interface IActionLogin {
+    type: USER_ACTION_TYPES.LOG_IN;
+    payload: IStoredUser;
+}
+interface IActionLogOut {
+    type: USER_ACTION_TYPES.LOG_OUT;
+    paylaod: IStoredUser;
+}
+
+export type IUserAction =
+    IActionRegister |
+    IActionLogin |
+    IActionLogOut;
