@@ -1,7 +1,7 @@
-import { IStoredUser, IUserAction } from "../../types";
+import { IUser, IUserAction } from "../../types";
 import { ACTION_TYPES } from "./actionTypes";
 
-const initialState: IStoredUser = {
+const initialState: IUser = {
     "id": -1,
     "email": '',
     "name": '',
