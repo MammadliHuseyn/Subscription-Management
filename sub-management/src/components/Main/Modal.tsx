@@ -119,7 +119,7 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                 <InputLabel shrink htmlFor="age-native-label-placeholder">
                   duration
                 </InputLabel>
-                <Field name="duration.unit" component="select">
+                <Field name="duration.unit" component="select"  >
                   {Object.keys(DURATION_UNIT).map(dur => (
                     <option value={dur}>{dur}</option>
                   ))}
