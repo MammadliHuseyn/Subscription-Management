@@ -5,3 +5,30 @@
     height: 12px;
     align-items: center;
 }
+.zoom {
+    transition: transform .2s;
+    margin: 0 auto;
+  }
+  
+  .zoom:hover {
+    -ms-transform: scale(1.5); /* IE 9 */
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+    transform: scale(1.1); 
+
+  }
+.card-imgs{
+
+    border-radius: 15px;
+    border: none;
+    img{
+        border-radius: 15px;
+    }
+    .info{
+        background-color: #F8F9FA;
+    }
+    span{
+        letter-spacing: 5px;
+        color: cadetblue;
+
+    }
+}
