@@ -19,7 +19,6 @@ export const addSubscription = (userId: number, subscription: ISubscriptionCreat
     return (dispatch: Dispatch<any>) => {
         return axios.post(`${baseUrl}?userId=${userId}`, subscription).then(
             ({ data }) => {
-                dispatch({ type: ACTION_TYPES.ADD_SUBSCRIPTION, payload: data });
                 return data;
             }
         );
