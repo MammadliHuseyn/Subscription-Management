@@ -13,7 +13,7 @@ const initialUser: IUser = {
     email: '',
     name: '',
     surname: '',
-    username: ''
+    username: '',
 }
 
 export const userActionsWithStore = (user = initialUser, action: STORAGE_ACTIONS) => {
