@@ -43,5 +43,5 @@ export const removeSubscriptions = () => {
     return {
         type: ACTION_TYPES.REMOVE_SUBSCRIPTIONS_ON_LOG_OUT,
         payload: null
-    }
+    };
 };

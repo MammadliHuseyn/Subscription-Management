@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import { IUserLoginForm } from '../../types';
 import { loginUser } from '../../store/user/actions';
 import { useDispatch } from 'react-redux';
+import { STORAGE_ACTIONS, userActionsWithStore } from '../../store/user/storage';
 
 
 export const Login = () => {
@@ -24,7 +25,11 @@ export const Login = () => {
     }
   }, []);
 
-  return (
+  const user = React.useMemo(() => {
+    return userActionsWithStore(undefined, STORAGE_ACTIONS.GET_USER_FROM_STORAGE);
+  }, [])
+
+  return !user ? (
     <section className="page-heigth">
       <div className="container-fluid">
         <div className="row justify-content-center">
@@ -73,7 +78,7 @@ export const Login = () => {
                             <button
                               type="submit"
                               className="btn btn-primary btn-user btn-block w-50">Login
-                        </button>
+                            </button>
                           </Form>
                         )}
                       </Formik>
@@ -92,5 +97,5 @@ export const Login = () => {
         </div>
       </div>
     </section>
-  );
+  ) : <Redirect to="/" />;
 };

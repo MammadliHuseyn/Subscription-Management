@@ -50,4 +50,7 @@
     color: #dc3545;
     font-weight: 600;
 }
-
+button:disabled{
+    background-color:gray!important;
+    border-color:gray!important;
+}

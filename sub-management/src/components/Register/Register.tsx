@@ -5,6 +5,8 @@ import { IUserRegisterForm } from '../../types';
 import { useDispatch } from 'react-redux';
 import { registerUser } from './../../store/user/actions';
 import { useHistory } from 'react-router';
+import { STORAGE_ACTIONS, userActionsWithStore } from '../../store/user/storage';
+import { Redirect } from 'react-router-dom';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -40,8 +42,11 @@ const Register = () => {
     }
   }, []);
 
+  const user = React.useMemo(() => {
+    return userActionsWithStore(undefined, STORAGE_ACTIONS.GET_USER_FROM_STORAGE);
+  }, [])
 
-  return (
+  return !user ? (
     <section className="page-heigth bg-register">
       <div className="container">
         <div className="card o-hidden border-0 shadow-lg">
@@ -116,7 +121,7 @@ const Register = () => {
                         <button
                           type="submit"
                           className="btn btn-primary btn-user btn-block"> Register Account
-                          </button>
+                        </button>
                         <hr />
                       </Form>
                     )}
@@ -128,7 +133,7 @@ const Register = () => {
         </div>
       </div>
     </section>
-  );
+  ) : <Redirect to='/' />;
 }
 
 export default Register;
