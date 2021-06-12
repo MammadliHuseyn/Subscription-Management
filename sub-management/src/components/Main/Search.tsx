@@ -14,7 +14,7 @@ const Search: React.FC<IProps> = ({ onCurChange, curPageCount, totalCount }) => 
   return (
     <div className=" mb-4">
       <div className="d-flex justify-content-between align-items-center">
-        <span>Total: <span className="font-weight-bold">{totalCount}</span> subscriptions</span>
+        <span style={{color:'#699EA0'}}>Total: <span style={{color:'#699EA0'}} className="font-weight-bold">{totalCount}</span> subscriptions</span>
         <div>
           <InputLabel htmlFor="Items-Per-page">Items per page</InputLabel>
           <FormControl>

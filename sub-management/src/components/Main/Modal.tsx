@@ -7,9 +7,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import InputLabel from '@material-ui/core/InputLabel';
+import InputLabel from "@material-ui/core/InputLabel";
 import { useDispatch } from "react-redux";
-import { addSubscription, getSubscriptions } from "../../store/subscription/actions";
+import {
+  addSubscription,
+  getSubscriptions,
+} from "../../store/subscription/actions";
 import Swal from "sweetalert2";
 import moment from "moment";
 
@@ -36,15 +39,13 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
       .min(2, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
-    price: Yup.string()
-      .required("Required"),
-    lastPaymentDay: Yup.string()
-      .required("Required"),
+    price: Yup.string().required("Required"),
+    lastPaymentDay: Yup.string().required("Required"),
   });
 
   const initialValue: ISubscriptionCreateForm = React.useMemo(() => {
     return {
-      name: '',
+      name: "",
       active: true,
       price: 1,
       hasNotification: false,
@@ -53,9 +54,9 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
         value: 1,
       },
       userId: userId,
-      lastPaymentDay: ''
-    }
-  }, [userId])
+      lastPaymentDay: "",
+    };
+  }, [userId]);
 
   return (
     <div className="d-flex justify-content-end mb-4 mt-4">
@@ -73,22 +74,26 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
           <Formik
             initialValues={initialValue}
             validationSchema={NewSubSchema}
-            onSubmit={newSub => {
+            onSubmit={(newSub) => {
               newSub.hasNotification = eval(newSub.hasNotification.toString());
               newSub.duration.value = Number(newSub.duration.value);
-              newSub.lastPaymentDay += ` ${moment().format('HH:mm:ss')}`
-              addSubscription(userId, newSub)(dispatch)
+              newSub.lastPaymentDay += ` ${moment().format("HH:mm:ss")}`;
+              addSubscription(
+                userId,
+                newSub
+              )(dispatch)
                 .then(() => {
-                  Swal.fire('Subscribed successfully', '', 'success')
+                  Swal.fire("Subscribed successfully", "", "success");
                   handleClose();
                 })
-                .then(() => getSubscriptions(userId, curPage, pageSize))
+                .then(() => getSubscriptions(userId, curPage, pageSize)(dispatch))
                 .catch(() => {
-                  Swal.fire('Not subscribed', '', 'error');
+                  Swal.fire("Not subscribed", "", "error");
                   handleClose();
                 });
               console.log(newSub);
-            }}>
+            }}
+          >
             {({ errors, touched }) => (
               <Form className="form-group modal-forms">
                 <Field
@@ -99,6 +104,9 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                 {errors.name && touched.name ? (
                   <div className="error-validation">{errors.name}</div>
                 ) : null}
+                <InputLabel shrink htmlFor="age-native-label-placeholder">
+                  Price
+                </InputLabel>
                 <Field
                   name="price"
                   type="number"
@@ -108,25 +116,50 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                 {errors.price && touched.price ? (
                   <div className="error-validation">{errors.price}</div>
                 ) : null}
+                <div className="d-flex justify-content-between ">
+                  <div className="w-75">
+                    <InputLabel shrink htmlFor="age-native-label-placeholder">
+                      duration time
+                    </InputLabel>
+                    <Field
+                      name="duration.value"
+                      className="form-control"
+                      placeholder="duration time"
+                    />
+                  </div>
+
+                  <div>
+                    <InputLabel shrink htmlFor="age-native-label-placeholder">
+                      duration
+                    </InputLabel>
+                    <Field
+                      style={{
+                        border: "none;",
+                        borderColor: "#ced4da",
+                        padding: "7px",
+                      }}
+                      name="duration.unit"
+                      component="select"
+                    >
+                      {Object.keys(DURATION_UNIT).map((dur) => (
+                        <option value={dur}>{dur}</option>
+                      ))}
+                    </Field>
+                  </div>
+                </div>
                 <InputLabel shrink htmlFor="age-native-label-placeholder">
-                  duration time
+                  Notifications
                 </InputLabel>
                 <Field
-                  name="duration.value"
-                  className="form-control"
-                  placeholder="duration time"
-                />
-                <InputLabel shrink htmlFor="age-native-label-placeholder">
-                  duration
-                </InputLabel>
-                <Field name="duration.unit" component="select"  >
-                  {Object.keys(DURATION_UNIT).map(dur => (
-                    <option value={dur}>{dur}</option>
-                  ))}
-                </Field>
-                <br />
-                <br />
-                <Field name="hasNotification" component="select">
+                  style={{
+                    border: "none;",
+                    borderColor: "#ced4da",
+                    padding: "7px",
+                  }}
+                  className="w-100"
+                  name="hasNotification"
+                  component="select"
+                >
                   <option value={"true"}>Send me notifications</option>
                   <option value={"false"}>No notifications</option>
                 </Field>
@@ -136,6 +169,13 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                   Last Payment Day
                 </InputLabel>
                 <Field
+                  style={{
+                    border: "none;",
+                    borderColor: "#ced4da",
+                    outline: "none",
+                    padding: "7px",
+                  }}
+                  className="w-50 form-control t-center"
                   disableToolbar
                   variant="inline"
                   format="dd/MM/yyyy"
@@ -145,17 +185,15 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                   type="date"
                   name="lastPaymentDay"
                   KeyboardButtonProps={{
-                    'aria-label': 'change date',
+                    "aria-label": "change date",
                   }}
                 />
                 {errors.price && touched.price ? (
                   <div className="error-validation">{errors.price}</div>
                 ) : null}
                 <br />
-                <br />
-                <button
-                  type="submit"
-                  className="btn btn-success">
+                
+                <button type="submit" className="btn btn-success">
                   Subscribe
                 </button>
               </Form>
@@ -172,5 +210,3 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
   );
 };
 export default Modal;
-
-

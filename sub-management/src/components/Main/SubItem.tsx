@@ -24,7 +24,7 @@ export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
   return (
     <>
       <div className="col-xl-3 col-md-6 mb-4 p-0" onClick={handleClickOpen}>
-        <div className="card card-imgs zoom" style={{ width: "18rem" }}>
+        <div  className="card card-imgs zoom" style={{ width: "18rem",cursor:'pointer' }}>
           <img
             className="card-img-top "
             src="https://insideios.com/wp-content/uploads/2021/03/netflix.jpg"
