@@ -4,9 +4,11 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import FormControl from "@material-ui/core/FormControl";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ISubscription } from "../../types";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
 
 export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
   const [open, setOpen] = React.useState(false);
@@ -35,30 +37,87 @@ export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
         </div>
       </div>
 
-      <Dialog
-        fullWidth
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-        <DialogContent className='p-3'>
+        <DialogContent className="p-3">
           <TextField
+            className="mt-2 mb-2"
             autoFocus
             margin="dense"
             id="name"
             label="Name"
             type="email"
             fullWidth
-            value={sub.name}
+            defaultValue={sub.name}
           />
+          <TextField
+            className="mt-2 mb-2"
+            autoFocus
+            margin="dense"
+            id="price"
+            label="Price"
+            type="email"
+            fullWidth
+            defaultValue={sub.price}
+          />
+          <InputLabel className="mt-2 mb-2" htmlFor="age-native-simple">
+            Categories
+          </InputLabel>
+          <FormControl fullWidth>
+            <Select
+              fullWidth
+              native
+              inputProps={{
+                name: "Categories",
+                id: "categorie",
+              }}
+            >
+              <option aria-label="None" value="" />
+              <option value={10}>Category1</option>
+              <option value={20}>Category2</option>
+              <option value={30}>Category3</option>
+            </Select>
+          </FormControl>
+          <InputLabel className="mt-2 mb-2" htmlFor="age-native-simple">
+            Has_Notification
+          </InputLabel>
+          <FormControl fullWidth>
+            <Select
+              fullWidth
+              native
+              inputProps={{
+                name: "has_Notification",
+                id: "hasNotification",
+              }}
+            >
+              <option aria-label="None" value="Has-Notification" />
+              <option value={"Yes"}>Yes</option>
+              <option value={"No"}>No</option>
+            </Select>
+          </FormControl>
+          <InputLabel className="mt-2 mb-2" htmlFor="age-native-simple">
+            Duration
+          </InputLabel>
+          <FormControl fullWidth>
+            <Select
+              fullWidth
+              native
+              inputProps={{
+                name: "has_Notification",
+                id: "hasNotification",
+              }}
+            >
+              <option aria-label="None" value="Duration" />
+              <option value={"Yes"}>1</option>
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Update
           </Button>
           <Button onClick={handleClose} color="primary">
-            Subscribe
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
