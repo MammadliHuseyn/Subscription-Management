@@ -1,41 +1,15 @@
 import Modal from "./Modal";
-import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import React, { Dispatch, SetStateAction } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      // margin: theme.spacing(1),
-      maxWidth: "500px",
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  })
-);
+interface IProps {
+  onCurChange: Dispatch<SetStateAction<number>>;
+  curPageCount: number;
+}
 
-const Search = () => {
-  const classes = useStyles();
-  const [state, setState] = React.useState<{
-    age: string | number;
-    name: string;
-  }>({
-    age: "",
-    name: "hai",
-  });
-  const handleChange = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    const name = event.target.name as keyof typeof state;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
+const Search: React.FC<IProps> = ({ onCurChange, curPageCount }) => {
   return (
     <div className=" mb-4">
       <Modal />
@@ -49,7 +23,7 @@ const Search = () => {
             my-2 my-md-0
             mw-100
             navbar-search
-            w-50
+            w-75
             border
             rounded
            "
@@ -70,21 +44,20 @@ const Search = () => {
           </div>
         </form>
         <div>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="Categories">Categories</InputLabel>
+          <InputLabel htmlFor="Items-Per-page">Items per page</InputLabel>
+          <FormControl>
             <Select
               native
-              value={state.age}
-              onChange={handleChange}
+              onChange={(e: any) => { onCurChange(e.target.value) }}
+              value={curPageCount}
               inputProps={{
-                name: "Categories",
-                id: "Categories",
+                name: "Items Per page",
+                id: "Items-Per-page",
               }}
             >
-              <option aria-label="Categories" value="Categories" />
-              <option value={10}>Ten</option>
-              <option value={20}>Twenty</option>
-              <option value={30}>Thirty</option>
+              <option value={8}>8</option>
+              <option value={12}>12</option>
+              <option value={16}>16</option>
             </Select>
           </FormControl>
         </div>

@@ -29,7 +29,6 @@ const Navbar = () => {
     <header className="container-fluid">
     <nav
       className="
-     
         navbar navbar-expand navbar-light
         bg-white
         mb-4
