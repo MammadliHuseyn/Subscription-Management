@@ -36,23 +36,21 @@ export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
       </div>
 
       <Dialog
+        fullWidth
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
+        <DialogContent className='p-3'>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address"
+            label="Name"
             type="email"
             fullWidth
+            value={sub.name}
           />
         </DialogContent>
         <DialogActions>
