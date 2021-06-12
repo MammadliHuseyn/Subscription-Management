@@ -1,4 +1,3 @@
-import Modal from "./Modal";
 import React, { Dispatch, SetStateAction } from "react";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";

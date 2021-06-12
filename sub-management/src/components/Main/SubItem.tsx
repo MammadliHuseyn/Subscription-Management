@@ -9,10 +9,19 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { ISubscription } from "../../types";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
+import { deleteSubscription, getSubscriptions } from "../../store/subscription/actions";
+import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
-export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
+interface IProps {
+  sub: ISubscription;
+  curPage: number;
+  pageSize: number;
+}
+
+export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
   const [open, setOpen] = React.useState(false);
-
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -20,6 +29,19 @@ export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const deleteSub = () => {
+    deleteSubscription(sub.userId, sub.id)(dispatch)
+      .then(() => {
+        handleClose();
+        Swal.fire('Deleted successfully!', '', 'success');
+      })
+      .then(() => getSubscriptions(sub.userId, curPage, pageSize)(dispatch))
+      .catch(() => {
+        handleClose();
+        Swal.fire('Can not deleted!', 'Uncaught error...', 'error');
+      })
+  }
 
   return (
     <>
@@ -115,7 +137,7 @@ export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
           <Button onClick={handleClose} color="primary">
             Update
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={deleteSub} color="primary">
             Delete
           </Button>
         </DialogActions>

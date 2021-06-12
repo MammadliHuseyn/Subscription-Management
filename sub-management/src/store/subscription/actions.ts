@@ -33,10 +33,12 @@ export const stopSubscription = (subId: number) => {
     };
 };
 
-export const deleteSubscription = (subId: number) => {
+export const deleteSubscription = (userId: number, subId: number) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.post(`${baseUrl}`, subId).then(
-            ({ data }) => dispatch({ type: ACTION_TYPES.DELETE_SUBSCRIPTION, payload: data }),
+        return axios.delete(`${baseUrl}?userId=${userId}&subId=${subId}`).then(
+            ({ data }) => {
+                return data;
+            }
         );
     };
 };
