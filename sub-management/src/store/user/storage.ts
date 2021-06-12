@@ -1,0 +1,3 @@
+export enum STORAGE{
+    ADD_USER_TO_STORAGE="ADD_USER_TO_STORAGE"
+}
