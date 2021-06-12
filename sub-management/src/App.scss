@@ -2,6 +2,7 @@
 @import "./components/scss/sb-admin-2.scss";
 @import "./pagination";
 @import "./main";
+@import "./user-card";
 a{
     text-decoration: none;
 }
@@ -23,7 +24,6 @@ a{
       display: flex;
       align-items: center;
     }
-    // font-size: 1em;
   }
 }
 
@@ -53,4 +53,7 @@ a{
 button:disabled{
     background-color:gray!important;
     border-color:gray!important;
+}
+.navbar-nav{
+    align-items: baseline!important;
 }

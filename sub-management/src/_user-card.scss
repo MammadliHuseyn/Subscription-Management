@@ -1,0 +1,23 @@
+.user-card {
+    position: absolute;
+    top: 8%;
+    right: 0;
+    display: none;
+    z-index: 999;
+    p {
+        font-weight: 600;
+    }
+    img {
+        width: 100px;
+        height: 100px;
+        margin-left: 10px;
+    }
+}
+.user-name {
+    cursor: pointer;
+    &:hover {
+        .user-card{
+            display:block;
+        }
+    }
+}
