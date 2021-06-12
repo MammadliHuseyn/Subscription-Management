@@ -25,10 +25,16 @@ interface IGroup {
     name: string;
     userId: string;
 }
+enum DURATION_UNIT {
+    YEAR = "YEAR",
+    MONTH = "MONTH",
+    WEEK = "WEEK",
+    DAY = "DAY"
+}
 interface IDuration {
     id: number;
     value: number;
-    unit: string;
+    unit: DURATION_UNIT;
 }
 export interface ISubscription {
     id: number;
@@ -41,6 +47,23 @@ export interface ISubscription {
     hasNotification: Boolean;
     active: Boolean;
     duration: IDuration;
+}
+export interface ISubscriptionUpdateForm {
+    name: string;
+    price: number;
+    userId: number;
+    group: IGroup;
+    hasNotification: Boolean;
+    duration: IDuration;
+}
+export interface ISubscriptionCreateForm {
+    name: string;
+    price: number;
+    userId: number;
+    lastPaymentDay: string;
+    active: Boolean;
+    hasNotification: Boolean;
+    duration: IDuration
 }
 
 interface IActionGetSubscriptions {
