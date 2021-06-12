@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { ISubscription } from '../../types';
+import { ISubscriptionCreateForm } from '../../types';
 import { ACTION_TYPES } from './actionTypes';
 const baseUrl = 'http://172.28.0.144:7000/api/subscriptions';
 
@@ -15,10 +15,13 @@ export const getSubscriptions = (userId: number, pageNo: number = 1, pageSize: n
     };
 };
 
-export const addSubscription = (subscription: ISubscription) => {
+export const addSubscription = (userId: number, subscription: ISubscriptionCreateForm) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.post(`${baseUrl}`, subscription).then(
-            ({ data }) => dispatch({ type: ACTION_TYPES.ADD_SUBSCRIPTION, payload: data }),
+        return axios.post(`${baseUrl}?userId=${userId}`, subscription).then(
+            ({ data }) => {
+                dispatch({ type: ACTION_TYPES.ADD_SUBSCRIPTION, payload: data });
+                return data;
+            }
         );
     };
 };

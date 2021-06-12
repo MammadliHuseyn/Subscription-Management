@@ -25,14 +25,14 @@ interface IGroup {
     name: string;
     userId: string;
 }
-enum DURATION_UNIT {
+export enum DURATION_UNIT {
     YEAR = "YEAR",
     MONTH = "MONTH",
     WEEK = "WEEK",
     DAY = "DAY"
 }
-interface IDuration {
-    id: number;
+export interface IDuration {
+    id?: number;
     value: number;
     unit: DURATION_UNIT;
 }

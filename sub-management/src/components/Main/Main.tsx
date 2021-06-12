@@ -2,6 +2,7 @@ import React from 'react';
 import Search from "./Search";
 import Navbar from "../Navbar/Navbar";
 import Pagination from "./Pagination";
+import Modal from "./Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { ISelector } from "../../types/useSelectorType";
 import { getSubscriptions } from '../../store/subscription/actions';
@@ -32,7 +33,11 @@ const Main = () => {
           <div id="content">
             <Navbar />
             <div className="container">
-              <Search onCurChange={setCurPageCount} curPageCount={curPageCount}/>
+              <Modal 
+              userId={user.id}
+              pageSize={curPageCount}
+              curPage={curPage}/>
+              <Search onCurChange={setCurPageCount} curPageCount={curPageCount} totalCount={totalSubCount}/>
               <div className="row">
                 {subscriptions.map(sub =>
                   <SubItem

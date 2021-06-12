@@ -12,6 +12,7 @@ export const registerUser = (user: IUserRegisterForm) => {
         return axios.post(`${baseUrl}`, user).then(
             ({ data }) => {
                 dispatch({ type: ACTION_TYPES.REGISTER, payload: data });
+                userActionsWithStore(data, STORAGE_ACTIONS.ADD_USER_TO_STORAGE);
                 return data;
             },
         ).then((data) => {
