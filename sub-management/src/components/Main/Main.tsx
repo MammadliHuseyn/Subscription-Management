@@ -33,16 +33,18 @@ const Main = () => {
           <div id="content">
             <Navbar />
             <div className="container">
-              <Modal 
-              userId={user.id}
-              pageSize={curPageCount}
-              curPage={curPage}/>
-              <Search onCurChange={setCurPageCount} curPageCount={curPageCount} totalCount={totalSubCount}/>
+              <Modal
+                userId={user.id}
+                pageSize={curPageCount}
+                curPage={curPage} />
+              <Search onCurChange={setCurPageCount} curPageCount={curPageCount} totalCount={totalSubCount} />
               <div className="row">
                 {subscriptions.map(sub =>
                   <SubItem
                     sub={sub}
                     key={sub.id}
+                    curPage={curPage}
+                    pageSize={curPageCount}
                   />
                 )}
                 <br />
