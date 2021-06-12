@@ -22,27 +22,25 @@ export interface IUser {
 }
 interface IGroup {
     id: number;
-    value: string;
-    type: string;
-}
-interface IPrice {
-    id: number;
-    amount: string;
-    currency: string;
-}
-interface ICategory {
-    id: number;
     name: string;
+    userId: string;
+}
+interface IDuration {
+    id: number;
+    value: number;
+    unit: string;
 }
 export interface ISubscription {
     id: number;
     name: string;
-    price: IPrice;
+    price: number;
     userId: number;
     group: IGroup;
+    lastPaymentDay: string;
+    nextPaymentDay: string;
+    hasNotification: Boolean;
     active: Boolean;
-    category: ICategory;
-    subscriptionTime: string;
+    duration: IDuration;
 }
 
 interface IActionGetSubscriptions {
@@ -61,12 +59,17 @@ interface IActionDeleteSubscription {
     type: SUB_ACTION_TYPES.DELETE_SUBSCRIPTION;
     payload: number; // subscription id
 }
+interface IActionOnLogoutRemove {
+    type: SUB_ACTION_TYPES.REMOVE_SUBSCRIPTIONS_ON_LOG_OUT;
+    payload: null;
+}
 
 export type ISubAction =
     IActionGetSubscriptions |
     IActionAddSubscription |
     IActionStopSubscription |
-    IActionDeleteSubscription;
+    IActionDeleteSubscription |
+    IActionOnLogoutRemove;
 
 interface IActionRegister {
     type: USER_ACTION_TYPES.REGISTER;

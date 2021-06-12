@@ -7,7 +7,6 @@ export const reducer = (state = initialState, action: ISubAction) => {
     switch (action.type) {
         case ACTION_TYPES.GET_SUBSCRIPTIONS:
             return [
-                ...state,
                 ...action.payload
             ]
         case ACTION_TYPES.ADD_SUBSCRIPTION:
@@ -24,6 +23,8 @@ export const reducer = (state = initialState, action: ISubAction) => {
             })
         case ACTION_TYPES.DELETE_SUBSCRIPTION:
             return state.filter(sub => sub.id !== action.payload);
+        case ACTION_TYPES.REMOVE_SUBSCRIPTIONS_ON_LOG_OUT:
+            return initialState;
         default:
             return state;
     }
