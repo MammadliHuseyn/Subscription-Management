@@ -7,42 +7,14 @@ import Select from "@material-ui/core/Select";
 interface IProps {
   onCurChange: Dispatch<SetStateAction<number>>;
   curPageCount: number;
+  totalCount: number;
 }
 
-const Search: React.FC<IProps> = ({ onCurChange, curPageCount }) => {
+const Search: React.FC<IProps> = ({ onCurChange, curPageCount, totalCount }) => {
   return (
     <div className=" mb-4">
-      <Modal />
       <div className="d-flex justify-content-between align-items-center">
-        <form
-          className="
-            d-sm-inline-block
-            form-inline
-            mr-auto
-            ml-md-3
-            my-2 my-md-0
-            mw-100
-            navbar-search
-            w-75
-            border
-            rounded
-           "
-        >
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control bg-light border-0 small"
-              placeholder="Search for..."
-              aria-label="Search"
-              aria-describedby="basic-addon2"
-            />
-            <div className="input-group-append">
-              <button className="btn btn-primary" type="button">
-                <i className="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </form>
+        <span>Total: <span className="font-weight-bold">{totalCount}</span> subscriptions</span>
         <div>
           <InputLabel htmlFor="Items-Per-page">Items per page</InputLabel>
           <FormControl>
