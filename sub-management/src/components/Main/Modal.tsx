@@ -60,12 +60,12 @@ const Modal = () => {
   });
 
   return (
-    <div>
+    <div className="d-flex justify-content-end mb-4 mt-4">
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Subscription Create
       </Button>
       <Dialog
-        
+        fullWidth
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
@@ -80,13 +80,13 @@ const Modal = () => {
             }}
             validationSchema={SignupSchema}
             onSubmit={(values) => {
-              // same shape as initial values
               console.log(values);
             }}
           >
             {({ errors, touched }) => (
               <Form className="form-group modal-forms">
                 <Field
+                style={{width:"50%"}}
                   name="firstName"
                   className="form-control"
                   placeholder="Name"
