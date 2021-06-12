@@ -12,6 +12,20 @@
         margin-bottom: 10px;
     }
 }
+
+.header-comp{
+    width: 100%;
+    .header-content{
+        color: cadetblue;
+
+        @media(max-width: 767.98px){
+            display: flex;
+            align-items: center;
+        }
+        // font-size: 1em;
+    }
+}
+
 .center-404{
    height: 100vh;
    display: flex;
