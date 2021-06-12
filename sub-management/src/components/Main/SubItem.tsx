@@ -36,7 +36,6 @@ export const SubItem: React.FC<{ sub: ISubscription }> = ({ sub }) => {
           </div>
         </div>
       </div>
-
       <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent className="p-3">
