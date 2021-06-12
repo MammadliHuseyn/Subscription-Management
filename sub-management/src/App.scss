@@ -1,53 +1,52 @@
-@import 'bootstrap';
+@import "bootstrap";
 @import "./components/scss/sb-admin-2.scss";
 @import "./pagination";
 @import "./main";
-
-.bg-register{
-    background-color: rgb(206, 169, 89);
+a{
+    text-decoration: none;
 }
-.modal-forms{
-    
-    input{
-        margin-bottom: 10px;
+.bg-register {
+  background-color: rgb(206, 169, 89);
+}
+.modal-forms {
+  input {
+    margin-bottom: 10px;
+  }
+}
+
+.header-comp {
+  width: 100%;
+  .header-content {
+    color: cadetblue;
+
+    @media (max-width: 767.98px) {
+      display: flex;
+      align-items: center;
     }
+    // font-size: 1em;
+  }
 }
 
-.header-comp{
-    width: 100%;
-    .header-content{
-        color: cadetblue;
-
-        @media(max-width: 767.98px){
-            display: flex;
-            align-items: center;
-        }
-        // font-size: 1em;
-    }
+.center-404 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.center-404{
-   height: 100vh;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+.page-heigth {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.page-heigth{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+.flex-between {
+  display: flex;
+  justify-content: space-between !important;
 }
 
-.flex-between{
-    display: flex;
-    justify-content: space-between !important;
+.error-validation {
+  color: #dc3545;
+  font-weight: 600;
 }
-
-.error-validation{
-    color: #dc3545;
-    font-weight: 600;
-}
-
