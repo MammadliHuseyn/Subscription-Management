@@ -16,7 +16,7 @@ const Main = () => {
   }, [])
   const [pageCount, setPageCount] = React.useState<number>(1); // calculated page count
   const [totalSubCount, setTotalSubCount] = React.useState<number>(10); // total count of items
-  const [curPageCount, setCurPageCount] = React.useState<number>(12); // this page items count
+  const [curPageCount, setCurPageCount] = React.useState<number>(8); // this page items count
   const [curPage, setCurPage] = React.useState<number>(0); // page of current
   React.useEffect(() => {
     getSubscriptions(user.id, curPage, curPageCount)(dispatch).then((pages: { pageSize: number, pageCount: number }) => {
@@ -32,7 +32,7 @@ const Main = () => {
           <div id="content">
             <Navbar />
             <div className="container">
-              <Search />
+              <Search onCurChange={setCurPageCount} curPageCount={curPageCount}/>
               <div className="row">
                 {subscriptions.map(sub =>
                   <SubItem
