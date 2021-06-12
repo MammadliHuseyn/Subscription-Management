@@ -1,11 +1,14 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { logOutUser } from "../../store/user/actions";
-import { ISelector } from "../../types/useSelectorType";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { STORAGE_ACTIONS, userActionsWithStore } from "../../store/user/storage";
 
 const Navbar = () => {
-  const user = useSelector((state: ISelector) => state.UserReducer);
+  const user = React.useMemo(() => {
+    return userActionsWithStore(undefined, STORAGE_ACTIONS.GET_USER_FROM_STORAGE);
+}, [])
   const dispatch = useDispatch();
   const { push } = useHistory();
   const handleLogOut = () => {
@@ -18,6 +21,7 @@ const Navbar = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         logOutUser(user.id)(dispatch).then(() => push("/login"));
+        userActionsWithStore(undefined, STORAGE_ACTIONS.DELETE_USER_FROM_STORAGE);
       }
     });
   };
