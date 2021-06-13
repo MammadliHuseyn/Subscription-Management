@@ -5,11 +5,12 @@ import { IUserLoginForm, IUserRegisterForm } from './../../types';
 import Swal from 'sweetalert2';
 import { getSubscriptions, removeSubscriptions } from './../subscription/actions';
 import { STORAGE_ACTIONS, userActionsWithStore } from './storage';
-const baseUrl = "http://172.28.0.144:7000/api/users";
+import { baseUrl } from '../../Api/baseUrl';
+const baseurlForUser = `${baseUrl}/api/users`;
 
 export const registerUser = (user: IUserRegisterForm) => {
     return (dispatch: Dispatch) => {
-        return axios.post(`${baseUrl}`, user).then(
+        return axios.post(`${baseurlForUser}`, user).then(
             ({ data }) => {
                 dispatch({ type: ACTION_TYPES.REGISTER, payload: data });
                 userActionsWithStore(data, STORAGE_ACTIONS.ADD_USER_TO_STORAGE);
@@ -29,7 +30,7 @@ export const registerUser = (user: IUserRegisterForm) => {
 
 export const loginUser = (user: IUserLoginForm) => {
     return (dispatch: Dispatch) => {
-        return axios.post(`${baseUrl}/auth`, user)
+        return axios.post(`${baseurlForUser}/auth`, user)
             .then(({ data }) => {
                 dispatch({ type: ACTION_TYPES.LOG_IN, payload: data });
                 userActionsWithStore(data, STORAGE_ACTIONS.ADD_USER_TO_STORAGE);
@@ -44,7 +45,7 @@ export const loginUser = (user: IUserLoginForm) => {
 
 export const logOutUser = (id: number) => {
     return (dispatch: Dispatch) => {
-        return axios.get(`${baseUrl}/logout`)
+        return axios.get(`${baseurlForUser}/logout`)
             .then(({ data }) => {
                 dispatch({ type: ACTION_TYPES.LOG_OUT, payload: data });
                 userActionsWithStore(undefined, STORAGE_ACTIONS.DELETE_USER_FROM_STORAGE);

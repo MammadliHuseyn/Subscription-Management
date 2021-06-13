@@ -51,10 +51,9 @@ export interface ISubscription {
 export interface ISubscriptionUpdateForm {
     name: string;
     price: number;
-    userId: number;
-    group: IGroup;
     hasNotification: Boolean;
     duration: IDuration;
+    active:Boolean;
 }
 export interface ISubscriptionCreateForm {
     name: string;

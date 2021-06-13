@@ -6,6 +6,7 @@ import { IUserLoginForm } from '../../types';
 import { loginUser } from '../../store/user/actions';
 import { useDispatch } from 'react-redux';
 import { STORAGE_ACTIONS, userActionsWithStore } from '../../store/user/storage';
+import { Animated } from "react-animated-css";
 
 
 export const Login = () => {
@@ -42,7 +43,7 @@ export const Login = () => {
                     <div className="p-5">
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">
-                          Welcome Studio!
+                          Welcome!
                         </h1>
                       </div>
                       <Formik
@@ -62,7 +63,10 @@ export const Login = () => {
                                 placeholder="Enter User Name..."
                                 name="username"
                               />
-                              {errors.username && touched.username ? <div className="error-validation">{errors.username}</div> : null}
+                              {errors.username
+                                && touched.username
+                                ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.username}</div></Animated>
+                                : null}
                               <br />
                             </div>
                             <div className="form-group">
@@ -72,7 +76,10 @@ export const Login = () => {
                                 placeholder="Password..."
                                 name="password"
                               />
-                              {errors.password && touched.password ? <div className="error-validation">{errors.password}</div> : null}
+                              {errors.password
+                                && touched.password
+                                ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.password}</div></Animated>
+                                : null}
                               <br />
                             </div>
                             <button

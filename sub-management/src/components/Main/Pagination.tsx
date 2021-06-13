@@ -23,20 +23,18 @@ const Pagination: React.FC<IProps> = ({ maxCount, curPage, onPageChange }) => {
                 Previous
               </button>
             </li>
-            {
-              Array.from(Array(maxCount).keys()).map(count =>
-                <li className={`page-item ${count === curPage ? 'active' : ''}`}
-                  key={count}
-                  onClick={() => onPageChange(count)}>
-                  <button className="page-link" >
-                    {count + 1}
-                  </button>
-                </li>
-              )
-            }
+            {Array.from(Array(maxCount).keys()).map(count =>
+              <li className={`page-item ${count === curPage ? 'active' : ''}`}
+                key={count}
+                onClick={() => onPageChange(count)}>
+                <button className="page-link" >
+                  {count + 1}
+                </button>
+              </li>
+            )}
             <li className="page-item active">
               <button className="page-link"
-                disabled={curPage === maxCount-1 && true}
+                disabled={curPage === maxCount - 1 && true}
                 onClick={() => {
                   if (curPage !== maxCount) {
                     onPageChange(curPage + 1);

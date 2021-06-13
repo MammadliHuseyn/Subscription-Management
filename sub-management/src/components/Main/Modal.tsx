@@ -9,12 +9,10 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import InputLabel from "@material-ui/core/InputLabel";
 import { useDispatch } from "react-redux";
-import {
-  addSubscription,
-  getSubscriptions,
-} from "../../store/subscription/actions";
+import { addSubscription, getSubscriptions, } from "../../store/subscription/actions";
 import Swal from "sweetalert2";
 import moment from "moment";
+import { Animated } from "react-animated-css";
 
 interface IProps {
   userId: number;
@@ -61,61 +59,67 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
   return (
     <div className="d-flex justify-content-end mb-4 mt-4">
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Subscription Create
+        <span className="font-weight-bold mx-1">+</span> Subscription
       </Button>
       <Dialog
         fullWidth
         open={open}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+        aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>
           <Formik
             initialValues={initialValue}
             validationSchema={NewSubSchema}
-            onSubmit={(newSub) => {
+            onSubmit={newSub => {
               newSub.hasNotification = eval(newSub.hasNotification.toString());
               newSub.duration.value = Number(newSub.duration.value);
               newSub.lastPaymentDay += ` ${moment().format("HH:mm:ss")}`;
-              addSubscription(
-                userId,
-                newSub
-              )(dispatch)
+              addSubscription(userId, newSub)(dispatch)
                 .then(() => {
                   Swal.fire("Subscribed successfully", "", "success");
                   handleClose();
                 })
                 .then(() => getSubscriptions(userId, curPage, pageSize)(dispatch))
                 .catch(() => {
-                  Swal.fire("Not subscribed", "", "error");
+                  Swal.fire("Can not subscribed", "", "error");
                   handleClose();
                 });
-              console.log(newSub);
-            }}
-          >
+            }}>
             {({ errors, touched }) => (
               <Form className="form-group modal-forms">
+                <InputLabel shrink htmlFor="name">
+                  Name
+                </InputLabel>
                 <Field
                   name="name"
                   className="form-control"
-                  placeholder="Name"
-                />
-                {errors.name && touched.name ? (
-                  <div className="error-validation">{errors.name}</div>
-                ) : null}
+                  id="name"
+                  list="defaultNames"
+                  autoComplete="off" />
+                <datalist id="defaultNames">
+                  <option value="Netflix" />
+                  <option value="Youtube" />
+                  <option value="Twitch" />
+                  <option value="Spotify" />
+                  <option value="Apple music" />
+                </datalist>
+                {errors.name
+                  && touched.name
+                  ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.name}</div></Animated>
+                  : null}
                 <InputLabel shrink htmlFor="age-native-label-placeholder">
-                  Price
+                  Price ($)
                 </InputLabel>
                 <Field
                   name="price"
                   type="number"
                   className="form-control"
-                  placeholder="Price"
-                />
-                {errors.price && touched.price ? (
-                  <div className="error-validation">{errors.price}</div>
-                ) : null}
+                  placeholder="Price" />
+                {errors.price
+                  && touched.price
+                  ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.price}</div></Animated>
+                  : null}
                 <div className="d-flex justify-content-between ">
                   <div className="w-75">
                     <InputLabel shrink htmlFor="age-native-label-placeholder">
@@ -124,10 +128,8 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                     <Field
                       name="duration.value"
                       className="form-control"
-                      placeholder="duration time"
-                    />
+                      placeholder="duration time" />
                   </div>
-
                   <div>
                     <InputLabel shrink htmlFor="age-native-label-placeholder">
                       duration
@@ -139,8 +141,7 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                         padding: "7px",
                       }}
                       name="duration.unit"
-                      component="select"
-                    >
+                      component="select">
                       {Object.keys(DURATION_UNIT).map((dur) => (
                         <option value={dur}>{dur}</option>
                       ))}
@@ -158,8 +159,7 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                   }}
                   className="w-100"
                   name="hasNotification"
-                  component="select"
-                >
+                  component="select">
                   <option value={"true"}>Send me notifications</option>
                   <option value={"false"}>No notifications</option>
                 </Field>
@@ -186,13 +186,12 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                   name="lastPaymentDay"
                   KeyboardButtonProps={{
                     "aria-label": "change date",
-                  }}
-                />
-                {errors.price && touched.price ? (
-                  <div className="error-validation">{errors.price}</div>
-                ) : null}
+                  }} />
+                {errors.lastPaymentDay
+                  && touched.lastPaymentDay
+                  ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.lastPaymentDay}</div></Animated>
+                  : null}
                 <br />
-                
                 <button type="submit" className="btn btn-success">
                   Subscribe
                 </button>
