@@ -43,15 +43,25 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
       })
   }
 
+  const imgHandler = () => {
+    const lowerCasedName = sub.name.toLowerCase().trim();
+    const defaults = ['apple music.jpg', 'netflix.jpg', 'spotify.png', 'twitch.jpg', 'youtube.png'];
+    let result = "subscription.png";
+    defaults.forEach(def => {
+      if (def.includes(lowerCasedName)) {
+        result = def;
+      }
+    });
+    return result;
+  }
+
   return (
     <>
       <div className="col-xl-3 col-md-6 mb-4 p-0" onClick={handleClickOpen}>
-        <div  className="card card-imgs zoom" style={{ width: "18rem",cursor:'pointer' }}>
-          <img
-            className="card-img-top "
-            src="https://insideios.com/wp-content/uploads/2021/03/netflix.jpg"
-            alt="Card cap"
-          />
+        <div className="card card-imgs zoom" style={{ width: "18rem", cursor: 'pointer' }}>
+          <img className="card-img-top "
+            src={`${process.env.PUBLIC_URL}/img/${imgHandler()}`}
+            alt="Card cap" />
           <div className="d-flex justify-content-evenly info">
             <span>{sub.name}</span>
             <span>{`${sub.duration.value} : ${sub.duration.unit}.....`}</span>

@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from './../../store/user/actions';
 import { useHistory } from 'react-router';
 import { STORAGE_ACTIONS, userActionsWithStore } from '../../store/user/storage';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { Animated } from "react-animated-css";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -65,8 +66,7 @@ const Register = () => {
                     validationSchema={RegisterSchema}
                     onSubmit={validUser => {
                       registerUser(validUser)(dispatch).then((data) => data.id ? push('/') : '');
-                    }}
-                  >
+                    }}>
                     {({ errors, touched }) => (
                       <Form className="user">
                         <div className="form-group row">
@@ -77,7 +77,10 @@ const Register = () => {
                               placeholder="Username"
                               name="username"
                             />
-                            {errors.username && touched.username ? <div className="error-validation">{errors.username}</div> : null}
+                            {errors.username
+                              && touched.username
+                              ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.username}</div></Animated>
+                              : null}
                           </div>
                           <div className="col-sm-4 mb-3 mb-sm-0">
                             <Field
@@ -86,7 +89,10 @@ const Register = () => {
                               placeholder="Name"
                               name="name"
                             />
-                            {errors.name && touched.name ? <div className="error-validation">{errors.name}</div> : null}
+                            {errors.name
+                              && touched.name
+                              ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.name}</div></Animated>
+                              : null}
                           </div>
                           <div className="col-sm-4">
                             <Field
@@ -95,7 +101,10 @@ const Register = () => {
                               placeholder="Surname"
                               name="surname"
                             />
-                            {errors.surname && touched.surname ? <div className="error-validation">{errors.surname}</div> : null}
+                            {errors.surname
+                              && touched.surname
+                              ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.surname}</div></Animated>
+                              : null}
                           </div>
                         </div>
                         <div className="form-group">
@@ -105,7 +114,10 @@ const Register = () => {
                             placeholder="Email Address"
                             name="email"
                           />
-                          {errors.email && touched.email ? <div className="error-validation">{errors.email}</div> : null}
+                          {errors.email
+                            && touched.email
+                            ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.email}</div></Animated>
+                            : null}
                         </div>
                         <div className="form-group row">
                           <div className="offset-12 col-sm-12 mb-3 mb-sm-0">
@@ -115,17 +127,25 @@ const Register = () => {
                               placeholder="Password"
                               name="password"
                             />
-                            {errors.password && touched.password ? <div className="error-validation">{errors.password}</div> : null}
+                            {errors.password
+                              && touched.password
+                              ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.password}</div></Animated>
+                              : null}
                           </div>
                         </div>
                         <button
                           type="submit"
                           className="btn btn-primary btn-user btn-block"> Register Account
                         </button>
-                        <hr />
                       </Form>
                     )}
                   </Formik>
+                  <hr />
+                  <div className="text-center">
+                    <Link className="small" to="/login">
+                      Already have an account? Log in!
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

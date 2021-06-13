@@ -5,7 +5,7 @@ import { IUserLoginForm, IUserRegisterForm } from './../../types';
 import Swal from 'sweetalert2';
 import { getSubscriptions, removeSubscriptions } from './../subscription/actions';
 import { STORAGE_ACTIONS, userActionsWithStore } from './storage';
-const baseUrl = "http://172.28.0.144:7000/api/users";
+const baseUrl = "http://cda67f2ce7e3.ngrok.io/api/users";
 
 export const registerUser = (user: IUserRegisterForm) => {
     return (dispatch: Dispatch) => {

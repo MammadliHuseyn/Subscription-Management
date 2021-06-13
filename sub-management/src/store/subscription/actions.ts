@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { ISubscriptionCreateForm } from '../../types';
 import { ACTION_TYPES } from './actionTypes';
-const baseUrl = 'http://172.28.0.144:7000/api/subscriptions';
+const baseUrl = 'http://cda67f2ce7e3.ngrok.io/api/subscriptions';
 
 export const getSubscriptions = (userId: number, pageNo: number = 1, pageSize: number = 10) => {
     return (dispatch: Dispatch<any>) => {
