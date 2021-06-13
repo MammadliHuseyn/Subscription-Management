@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
+import { baseUrl } from '../../Api/baseUrl';
 import { ISubscriptionCreateForm, ISubscriptionUpdateForm } from '../../types';
 import { ACTION_TYPES } from './actionTypes';
-const baseUrl = 'http://cda67f2ce7e3.ngrok.io/api/subscriptions';
+const baseUrlSubs = `${baseUrl}/api/subscriptions`;
 
 export const getSubscriptions = (userId: number, pageNo: number = 1, pageSize: number = 10) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.get(`${baseUrl}?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`).then(
+        return axios.get(`${baseUrlSubs}?userId=${userId}&pageNo=${pageNo}&pageSize=${pageSize}`).then(
             ({ data }) => {
                 dispatch({ type: ACTION_TYPES.GET_SUBSCRIPTIONS, payload: data.subscriptions })
                 return { pageCount: data.pageCount, pageSize: data.pageSize };
@@ -17,7 +18,7 @@ export const getSubscriptions = (userId: number, pageNo: number = 1, pageSize: n
 
 export const addSubscription = (userId: number, subscription: ISubscriptionCreateForm) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.post(`${baseUrl}?userId=${userId}`, subscription).then(
+        return axios.post(`${baseUrlSubs}?userId=${userId}`, subscription).then(
             ({ data }) => {
                 return data;
             }
@@ -45,7 +46,7 @@ export const deleteSubscription = (userId: number, subId: number) => {
 
 export const updateSubscription = (userId: number, subId: number, subscription: ISubscriptionUpdateForm) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.put(`${baseUrl}?userId=${userId}&subId=${subId}`,subscription).then(
+        return axios.put(`${baseUrl}?userId=${userId}&subId=${subId}`, subscription).then(
             ({ data }) => {
                 return data;
             }

@@ -16,7 +16,7 @@ const Search: React.FC<IProps> = ({ onCurChange, curPageCount, totalCount }) => 
         <span style={{color:'#699EA0'}}>Total: <span style={{color:'#699EA0'}} className="font-weight-bold">{totalCount}</span> subscriptions</span>
         <div>
           <InputLabel htmlFor="Items-Per-page">Items per page</InputLabel>
-          <FormControl>
+          <FormControl style={{width:"100px"}}>
             <Select
               native
               onChange={(e: any) => { onCurChange(e.target.value) }}

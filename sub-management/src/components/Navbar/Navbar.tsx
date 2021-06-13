@@ -6,9 +6,11 @@ import { logOutUser } from "../../store/user/actions";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { STORAGE_ACTIONS, userActionsWithStore } from "../../store/user/storage";
 import userLogo from './../../img/user-logo.png';
+import { Notification } from "./Notification";
+import { IUser } from "../../types";
 
 const Navbar = () => {
-  const user = React.useMemo(() => {
+  const user:IUser = React.useMemo(() => {
     return userActionsWithStore(undefined, STORAGE_ACTIONS.GET_USER_FROM_STORAGE);
   }, [])
   const dispatch = useDispatch();
@@ -35,18 +37,7 @@ const Navbar = () => {
           <div className="header-comp d-flex justify-content-between align-items-center">
             <a className="header-content">Managment System</a>
             <ul className=" navbar-nav justify-content-end">
-              <li className="nav-item dropdown no-arrow mx-1">
-                <a
-                  className="nav-link"
-                  href="/"
-                  id="messagesDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false">
-                  <span className="badge badge-danger badge-counter">7</span>
-                </a>
-              </li>
+              <Notification userId={user.id}/>
               <li className="flex-between nav-item dropdown no-arrow mx-2 user-name">
                 <p className="d-none d-lg-inline text-gray-600 p-0">
                   <img src={userLogo}

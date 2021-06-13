@@ -1,0 +1,17 @@
+.notification__button {
+    background: none;
+    border: none;
+    color: #000;
+    position: relative;
+    i {
+        font-size: 1.5rem;
+    }
+}
+.notification__count {
+    background-color: #f00;
+    padding: 5px;
+    border-radius: 100%;
+    position: absolute;
+    top: 5%;
+    right: 10%;
+}

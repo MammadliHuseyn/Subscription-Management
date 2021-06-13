@@ -22,7 +22,6 @@ const Main = () => {
   React.useEffect(() => {
     getSubscriptions(user.id, curPage, curPageCount)(dispatch).then((pages: { pageSize: number, pageCount: number }) => {
       setPageCount(pages.pageCount);
-      console.log(pages.pageCount);
       setTotalSubCount(pages.pageSize);
     });
   }, [dispatch, user.id, curPage, curPageCount])
