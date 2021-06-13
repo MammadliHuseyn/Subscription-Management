@@ -1,17 +1,18 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import FormControl from "@material-ui/core/FormControl";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ISubscription } from "../../types";
+import { DURATION_UNIT, ISubscription, ISubscriptionUpdateForm } from "../../types";
 import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import { deleteSubscription, getSubscriptions } from "../../store/subscription/actions";
+import { Formik, Form, Field } from "formik";
+import { deleteSubscription, getSubscriptions, updateSubscription } from "../../store/subscription/actions";
 import { useDispatch } from "react-redux";
+import { Animated } from "react-animated-css";
 import Swal from "sweetalert2";
+import * as Yup from "yup";
+
 
 interface IProps {
   sub: ISubscription;
@@ -29,6 +30,26 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const updateSubSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    price: Yup.string().required("Required")
+  });
+
+  const initialValue: ISubscriptionUpdateForm = React.useMemo(() => {
+    return {
+      name: sub.name,
+      active: sub.active,
+      price: sub.price,
+      hasNotification: sub.hasNotification,
+      duration: {
+        ...sub.duration
+      }
+    };
+  }, [sub.active,sub.duration,sub.hasNotification,sub.name,sub.price]);
 
   const deleteSub = () => {
     deleteSubscription(sub.userId, sub.id)(dispatch)
@@ -71,82 +92,98 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
       <Dialog fullWidth open={open} onClose={handleClose}>
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent className="p-3">
-          <TextField
-            className="mt-2 mb-2"
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Name"
-            type="email"
-            fullWidth
-            defaultValue={sub.name}
-          />
-          <TextField
-            className="mt-2 mb-2"
-            autoFocus
-            margin="dense"
-            id="price"
-            label="Price"
-            type="email"
-            fullWidth
-            defaultValue={sub.price}
-          />
-          <InputLabel className="mt-2 mb-2" htmlFor="age-native-simple">
-            Categories
-          </InputLabel>
-          <FormControl fullWidth>
-            <Select
-              fullWidth
-              native
-              inputProps={{
-                name: "Categories",
-                id: "categorie",
-              }}
-            >
-              <option aria-label="None" value="" />
-              <option value={10}>Category1</option>
-              <option value={20}>Category2</option>
-              <option value={30}>Category3</option>
-            </Select>
-          </FormControl>
-          <InputLabel className="mt-2 mb-2" htmlFor="age-native-simple">
-            Has_Notification
-          </InputLabel>
-          <FormControl fullWidth>
-            <Select
-              fullWidth
-              native
-              inputProps={{
-                name: "has_Notification",
-                id: "hasNotification",
-              }}
-            >
-              <option aria-label="None" value="Has-Notification" />
-              <option value={"Yes"}>Yes</option>
-              <option value={"No"}>No</option>
-            </Select>
-          </FormControl>
-          <InputLabel className="mt-2 mb-2" htmlFor="age-native-simple">
-            Duration
-          </InputLabel>
-          <FormControl fullWidth>
-            <Select
-              fullWidth
-              native
-              inputProps={{
-                name: "has_Notification",
-                id: "hasNotification",
-              }}
-            >
-              <option aria-label="None" value="Duration" />
-              <option value={"Yes"}>1</option>
-            </Select>
-          </FormControl>
+          <Formik
+            initialValues={initialValue}
+            validationSchema={updateSubSchema}
+            onSubmit={updatedSub => {
+              updatedSub.hasNotification = eval(updatedSub.hasNotification.toString());
+              updatedSub.duration.value = Number(updatedSub.duration.value);
+              updateSubscription(sub.userId, sub.id, updatedSub)(dispatch)
+                .then(() => {
+                  Swal.fire("Updated Successfully", "", "success");
+                  handleClose();
+                })
+                .then(() => getSubscriptions(sub.userId, curPage, pageSize)(dispatch))
+                .catch(() => {
+                  Swal.fire("Can not updated", "Uncaught error", "error");
+                  handleClose();
+                });
+            }}>
+            {({ errors, touched }) => (
+              <Form className="form-group modal-forms">
+                <InputLabel shrink htmlFor="name">
+                  Name
+                </InputLabel>
+                <Field
+                  name="name"
+                  className="form-control"
+                  id="name"
+                  list="defaultNames"
+                  autoComplete="off" />
+                <datalist id="defaultNames">
+                  <option value="Netflix" />
+                  <option value="Youtube" />
+                  <option value="Twitch" />
+                  <option value="Spotify" />
+                  <option value="Apple music" />
+                </datalist>
+                {errors.name
+                  && touched.name
+                  ? <Animated animationIn="shake" animationOut="fadeOut" isVisible={true}><div className="error-validation">{errors.name}</div></Animated>
+                  : null}
+                <div className="d-flex justify-content-between ">
+                  <div className="w-75">
+                    <InputLabel shrink htmlFor="age-native-label-placeholder">
+                      duration time
+                    </InputLabel>
+                    <Field
+                      name="duration.value"
+                      className="form-control"
+                      placeholder="duration time" />
+                  </div>
+                  <div>
+                    <InputLabel shrink htmlFor="age-native-label-placeholder">
+                      duration
+                    </InputLabel>
+                    <Field
+                      style={{
+                        border: "none;",
+                        borderColor: "#ced4da",
+                        padding: "7px",
+                      }}
+                      name="duration.unit"
+                      component="select">
+                      {Object.keys(DURATION_UNIT).map((dur) => (
+                        <option value={dur}>{dur}</option>
+                      ))}
+                    </Field>
+                  </div>
+                </div>
+                <InputLabel shrink htmlFor="age-native-label-placeholder">
+                  Notifications
+                </InputLabel>
+                <Field
+                  style={{
+                    border: "none;",
+                    borderColor: "#ced4da",
+                    padding: "7px",
+                  }}
+                  className="w-100"
+                  name="hasNotification"
+                  component="select">
+                  <option value={"true"}>Send me notifications</option>
+                  <option value={"false"}>No notifications</option>
+                </Field>
+                <br />
+                <br />
+                <button type="submit" className="btn btn-success">
+                  Update Subscription
+                </button>
+              </Form>
+            )}
+          </Formik>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Update
-          </Button>
           <Button onClick={deleteSub} color="primary">
             Delete
           </Button>

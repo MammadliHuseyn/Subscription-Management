@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { ISubscriptionCreateForm } from '../../types';
+import { ISubscriptionCreateForm, ISubscriptionUpdateForm } from '../../types';
 import { ACTION_TYPES } from './actionTypes';
 const baseUrl = 'http://cda67f2ce7e3.ngrok.io/api/subscriptions';
 
@@ -36,6 +36,16 @@ export const stopSubscription = (subId: number) => {
 export const deleteSubscription = (userId: number, subId: number) => {
     return (dispatch: Dispatch<any>) => {
         return axios.delete(`${baseUrl}?userId=${userId}&subId=${subId}`).then(
+            ({ data }) => {
+                return data;
+            }
+        );
+    };
+};
+
+export const updateSubscription = (userId: number, subId: number, subscription: ISubscriptionUpdateForm) => {
+    return (dispatch: Dispatch<any>) => {
+        return axios.put(`${baseUrl}?userId=${userId}&subId=${subId}`,subscription).then(
             ({ data }) => {
                 return data;
             }
