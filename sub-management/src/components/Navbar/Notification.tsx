@@ -18,7 +18,6 @@ export const Notification: React.FC<{ userId: number }> = ({ userId }) => {
     const [notifications, setNotifications] = React.useState<Array<INotification>>([]);
     const handleOpen = () => {
         setIsNotificationOpen(!isNotificationOpen);
-        resetNotf();
     }
     const notificationSeenCount = () => {
         let count = 0
@@ -29,11 +28,16 @@ export const Notification: React.FC<{ userId: number }> = ({ userId }) => {
         })
         return count;
     }
-    const resetNotf = () => {
-        axios.post(`${baseUrl}/api/notifications/reset?userId=${userId}`);
+    const userHasSeenNotf = (notfId: number) => {
+        // axios.post(`${baseUrl}/api/notifications/reset?userId=${userId}`);
+        axios.post(`${baseUrl}/api/notifications/simple/reset?userId=${userId}&notfId=${notfId}`)
+            .then(() => {
+                axios.get(`${baseUrl}/api/notifications/simple?userId=${userId}`)
+                    .then(({ data }) => setNotifications(data.second))
+            })
     }
     React.useEffect(() => {
-        axios.get(`${baseUrl}/api/notifications/simple?userId=${userId}&limit=${5}`)
+        axios.get(`${baseUrl}/api/notifications/simple?userId=${userId}`)
             .then(({ data }) => setNotifications(data.second))
     }, [userId]);
     return (
@@ -51,7 +55,8 @@ export const Notification: React.FC<{ userId: number }> = ({ userId }) => {
                 {notifications.map(notf =>
                     <NotificationItem
                         key={notf.id}
-                        notf={notf} />
+                        notf={notf}
+                        setNotfSeen={userHasSeenNotf} />
                 )}
             </div>
         </li>
