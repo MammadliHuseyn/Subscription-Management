@@ -72,7 +72,7 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
             initialValues={initialValue}
             validationSchema={NewSubSchema}
             onSubmit={newSub => {
-              newSub.hasNotification = eval(newSub.hasNotification.toString());
+              newSub.hasNotification = Boolean(newSub.hasNotification);
               newSub.duration.value = Number(newSub.duration.value);
               newSub.lastPaymentDay += ` ${moment().format("HH:mm:ss")}`;
               addSubscription(userId, newSub)(dispatch)
@@ -160,8 +160,8 @@ const Modal: React.FC<IProps> = ({ userId, curPage, pageSize }) => {
                   className="w-100"
                   name="hasNotification"
                   component="select">
-                  <option value={"true"}>Send me notifications</option>
-                  <option value={"false"}>No notifications</option>
+                  <option value={1}>Send me notifications</option>
+                  <option value={0}>No notifications</option>
                 </Field>
                 <br />
                 <br />

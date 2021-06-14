@@ -9,6 +9,7 @@ import { getSubscriptions } from '../../store/subscription/actions';
 import { SubItem } from './SubItem';
 import { STORAGE_ACTIONS, userActionsWithStore } from '../../store/user/storage';
 import { IUser } from '../../types';
+import { Animated } from 'react-animated-css';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -44,24 +45,25 @@ const Main = () => {
                 curPageCount={curPageCount}
                 totalCount={totalSubCount}
                 setIsSearchMode={setIsSearchMode} />
-              <div className="row">
-                {subscriptions.map(sub =>
-                  <SubItem
-                    sub={sub}
-                    key={sub.id}
-                    curPage={curPage}
-                    pageSize={curPageCount}
-                  />
-                )}
-                <br />
-                {(!isSearchMode && totalSubCount > 8)
-                  &&
-                  <Pagination
-                    maxCount={pageCount}
-                    curPage={curPage}
-                    onPageChange={setCurPage} />
-                }
-              </div>
+              <Animated animationIn="bounceInRight" animationOut="bounceOutLeft" isVisible={true} >
+                <div className="row">
+                  {subscriptions.map(sub =>
+                    <SubItem
+                      sub={sub}
+                      key={sub.id}
+                      curPage={curPage}
+                      pageSize={curPageCount} />
+                  )}
+                </div>
+              </Animated>
+              <br />
+              {(!isSearchMode && totalSubCount > 8)
+                &&
+                <Pagination
+                  maxCount={pageCount}
+                  curPage={curPage}
+                  onPageChange={setCurPage} />
+              }
             </div>
           </div>
         </div>

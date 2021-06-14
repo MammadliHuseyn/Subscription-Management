@@ -105,7 +105,7 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
             initialValues={initialValue}
             validationSchema={updateSubSchema}
             onSubmit={updatedSub => {
-              updatedSub.hasNotification = eval(updatedSub.hasNotification.toString());
+              updatedSub.hasNotification = Boolean(updatedSub.hasNotification);
               updatedSub.duration.value = Number(updatedSub.duration.value);
               updateSubscription(sub.userId, sub.id, updatedSub)(dispatch)
                 .then(() => {
@@ -180,8 +180,8 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
                   className="w-100"
                   name="hasNotification"
                   component="select">
-                  <option value={"true"}>Send me notifications</option>
-                  <option value={"false"}>No notifications</option>
+                  <option value={1}>Send me notifications</option>
+                  <option value={0}>No notifications</option>
                 </Field>
                 <br />
                 <br />

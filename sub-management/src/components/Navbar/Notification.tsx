@@ -42,12 +42,12 @@ export const Notification: React.FC<{ userId: number }> = ({ userId }) => {
     }, [userId]);
     return (
         <li className="nav-item dropdown no-arrow mx-1 show">
-            <button className="nav-link dropdown-toggle notification__button"
+            <div className="nav-link dropdown-toggle notification__button"
                 id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
                 onClick={handleOpen}>
                 <i className="fas fa-bell fa-fw"></i>
                 <span className="badge badge-danger badge-counter notification__count">{notificationSeenCount()}</span>
-            </button>
+            </div>
             <div className={`dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in ${isNotificationOpen ? "show" : ""}`} aria-labelledby="alertsDropdown">
                 <h6 className="dropdown-header">
                     Alerts Center
