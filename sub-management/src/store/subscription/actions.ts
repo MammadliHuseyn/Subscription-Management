@@ -28,7 +28,7 @@ export const addSubscription = (userId: number, subscription: ISubscriptionCreat
 
 export const stopSubscription = (subId: number) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.post(`${baseUrl}`, subId).then(
+        return axios.post(`${baseUrlSubs}`, subId).then(
             ({ data }) => dispatch({ type: ACTION_TYPES.STOP_SUBSCRIPTION, payload: data }),
         );
     };
@@ -36,7 +36,7 @@ export const stopSubscription = (subId: number) => {
 
 export const deleteSubscription = (userId: number, subId: number) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.delete(`${baseUrl}?userId=${userId}&subId=${subId}`).then(
+        return axios.delete(`${baseUrlSubs}?userId=${userId}&subId=${subId}`).then(
             ({ data }) => {
                 return data;
             }
@@ -46,13 +46,23 @@ export const deleteSubscription = (userId: number, subId: number) => {
 
 export const updateSubscription = (userId: number, subId: number, subscription: ISubscriptionUpdateForm) => {
     return (dispatch: Dispatch<any>) => {
-        return axios.put(`${baseUrl}?userId=${userId}&subId=${subId}`, subscription).then(
+        return axios.put(`${baseUrlSubs}?userId=${userId}&subId=${subId}`, subscription).then(
             ({ data }) => {
                 return data;
             }
         );
     };
 };
+
+export const searchSubscriptions = (userId: number, name: string) => {
+    return (dispatch: Dispatch<any>) => {
+        return axios.get(`${baseUrlSubs}/search?userId=${userId}&name=${name}`).then(
+            ({ data }) => {
+                dispatch({ type: ACTION_TYPES.GET_SUBSCRIPTIONS, payload: data })
+            }
+        );
+    };
+}
 
 export const removeSubscriptions = () => {
     return {

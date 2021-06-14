@@ -52,8 +52,9 @@ export interface ISubscriptionUpdateForm {
     name: string;
     price: number;
     hasNotification: Boolean;
+    lastPaymentDay: string;
     duration: IDuration;
-    active:Boolean;
+    active: Boolean;
 }
 export interface ISubscriptionCreateForm {
     name: string;

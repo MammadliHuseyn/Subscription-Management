@@ -8,17 +8,19 @@ import { ISelector } from "../../types/useSelectorType";
 import { getSubscriptions } from '../../store/subscription/actions';
 import { SubItem } from './SubItem';
 import { STORAGE_ACTIONS, userActionsWithStore } from '../../store/user/storage';
+import { IUser } from '../../types';
 
 const Main = () => {
   const dispatch = useDispatch();
   const subscriptions = useSelector((state: ISelector) => state.SubReducer);
-  const user = React.useMemo(() => {
+  const user: IUser = React.useMemo(() => {
     return userActionsWithStore(undefined, STORAGE_ACTIONS.GET_USER_FROM_STORAGE);
   }, [])
   const [pageCount, setPageCount] = React.useState<number>(1); // calculated page count
   const [totalSubCount, setTotalSubCount] = React.useState<number>(10); // total count of items
   const [curPageCount, setCurPageCount] = React.useState<number>(8); // this page items count
   const [curPage, setCurPage] = React.useState<number>(0); // page of current
+  const [isSearchMode, setIsSearchMode] = React.useState<Boolean>(false);
   React.useEffect(() => {
     getSubscriptions(user.id, curPage, curPageCount)(dispatch).then((pages: { pageSize: number, pageCount: number }) => {
       setPageCount(pages.pageCount);
@@ -36,7 +38,12 @@ const Main = () => {
                 userId={user.id}
                 pageSize={curPageCount}
                 curPage={curPage} />
-              <Search onCurChange={setCurPageCount} curPageCount={curPageCount} totalCount={totalSubCount} />
+              <Search
+                userId={user.id}
+                onCurChange={setCurPageCount}
+                curPageCount={curPageCount}
+                totalCount={totalSubCount}
+                setIsSearchMode={setIsSearchMode} />
               <div className="row">
                 {subscriptions.map(sub =>
                   <SubItem
@@ -47,11 +54,13 @@ const Main = () => {
                   />
                 )}
                 <br />
-                <Pagination
-                  maxCount={pageCount}
-                  curPage={curPage}
-                  onPageChange={setCurPage}
-                />
+                {(!isSearchMode && totalSubCount > 8)
+                  &&
+                  <Pagination
+                    maxCount={pageCount}
+                    curPage={curPage}
+                    onPageChange={setCurPage} />
+                }
               </div>
             </div>
           </div>

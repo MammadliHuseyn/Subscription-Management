@@ -35,7 +35,7 @@ const Navbar = () => {
         <nav
           className="navbar navbar-expand navbar-light bg-white mb-4 static-top shadow container d-flex justify-content-center justify-content-md-between">
           <div className="header-comp d-flex justify-content-between align-items-center">
-            <a className="header-content">Managment System</a>
+            <a className="header-content font-weight-bold">Managment System</a>
             <ul className=" navbar-nav justify-content-end">
               <Notification userId={user.id}/>
               <li className="flex-between nav-item dropdown no-arrow mx-2 user-name">
@@ -50,7 +50,7 @@ const Navbar = () => {
               </li>
               <div id="log-out">
                 <button className="ml-1 btn btn-primary" onClick={handleLogOut}>
-                  LogOut
+                  Log Out
                 </button>
               </div>
             </ul>

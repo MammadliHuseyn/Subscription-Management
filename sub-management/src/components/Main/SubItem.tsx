@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { Animated } from "react-animated-css";
 import Swal from "sweetalert2";
 import * as Yup from "yup";
+import moment from "moment";
 
 
 interface IProps {
@@ -47,9 +48,10 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
       hasNotification: sub.hasNotification,
       duration: {
         ...sub.duration
-      }
+      },
+      lastPaymentDay: sub.lastPaymentDay,
     };
-  }, [sub.active,sub.duration,sub.hasNotification,sub.name,sub.price]);
+  }, [sub.active, sub.duration, sub.hasNotification, sub.name, sub.price, sub.lastPaymentDay]);
 
   const deleteSub = () => {
     deleteSubscription(sub.userId, sub.id)(dispatch)
@@ -75,7 +77,9 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
     });
     return result;
   }
-
+  const momentHandler = () => {
+    return moment(sub.nextPaymentDay).diff(moment(), 'days');
+  }
   return (
     <>
       <div className="col-xl-3 col-md-6 mb-4 p-0" onClick={handleClickOpen}>
@@ -83,9 +87,14 @@ export const SubItem: React.FC<IProps> = ({ sub, curPage, pageSize }) => {
           <img className="card-img-top "
             src={`${process.env.PUBLIC_URL}/img/${imgHandler()}`}
             alt="Card cap" />
-          <div className="d-flex justify-content-evenly info">
-            <span>{sub.name}</span>
-            <span>{`${sub.duration.value} : ${sub.duration.unit}.....`}</span>
+          <div className="d-flex info">
+            <span className="me-1">Payment day comes in</span>
+            {momentHandler() > 0
+              ?
+              <span className="font-weight-bold">{momentHandler()} days . . .</span>
+              :
+              <span className="font-weight-bold">Expired . . . </span>
+            }
           </div>
         </div>
       </div>
